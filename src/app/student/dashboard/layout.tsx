@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -66,6 +67,9 @@ export default function StudentDashboardLayout({ children }: { children: React.R
     setOnboardingComplete(true);
   }
 
+  // A simple check to see if onboarding might be done
+  const isOnboarded = userData?.programEnrolled || onboardingComplete;
+
   return (
     <SidebarProvider>
       <RoleRedirect />
@@ -119,9 +123,9 @@ export default function StudentDashboardLayout({ children }: { children: React.R
       </Sidebar>
       <SidebarInset>
         <DashboardHeader />
-        <main className="flex-1 p-4 sm:p-6 relative">
-           {!onboardingComplete && (
-            <div className="absolute inset-0 z-40 flex items-center justify-center bg-background/80 backdrop-blur-sm">
+        <main className="flex-1 p-4 md:p-6 relative">
+           {!isOnboarded && !isLoading && (
+            <div className="absolute inset-0 z-40 flex items-start md:items-center justify-center bg-background/80 backdrop-blur-sm p-0 md:p-4 overflow-y-auto">
                 <OnboardingPage onOnboardingComplete={handleOnboardingComplete} />
             </div>
            )}

@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -44,7 +45,7 @@ export default function StudentDashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div>
+      <div className="space-y-2">
         <h1 className="text-2xl font-bold tracking-tight font-headline">
           Welcome back, {userData?.fullName || 'Student'}!
         </h1>

@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -102,7 +103,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
       </Sidebar>
       <SidebarInset>
         <DashboardHeader />
-        <main className="flex-1 p-4 sm:p-6">{children}</main>
+        <main className="flex-1 p-4 md:p-6">{children}</main>
       </SidebarInset>
        {process.env.NODE_ENV === 'development' && userData && (
         <div className="fixed bottom-4 left-4 z-50 rounded-md border bg-card p-2 shadow-lg">

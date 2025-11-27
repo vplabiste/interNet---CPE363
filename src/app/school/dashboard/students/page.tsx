@@ -110,8 +110,8 @@ function StudentRow({ student }: { student: User }) {
           <div className="font-medium">{student.fullName}</div>
         </div>
       </TableCell>
-      <TableCell>{student.email}</TableCell>
-      <TableCell>{student.programEnrolled}</TableCell>
+      <TableCell className="hidden md:table-cell">{student.email}</TableCell>
+      <TableCell className="hidden lg:table-cell">{student.programEnrolled}</TableCell>
       <TableCell>
         <div className="flex items-center space-x-2">
           <Switch
@@ -121,9 +121,9 @@ function StudentRow({ student }: { student: User }) {
             disabled={isToggling}
             aria-label="Student Verification"
           />
-          <Label htmlFor={`verification-switch-${student.id}`} className="flex items-center gap-1.5">
-            {student.confirmed ? <><CheckCircle className="h-4 w-4 text-green-600" /> Verified</> : 'Unverified'}
-          </Label>
+           <span className="sr-only">
+            {student.confirmed ? 'Verified' : 'Unverified'}
+          </span>
            {isToggling && <Loader2 className="h-4 w-4 animate-spin" />}
         </div>
       </TableCell>
@@ -225,7 +225,7 @@ export default function SchoolStudentsPage() {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex justify-between items-center gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="relative w-full max-w-sm">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input 
@@ -235,7 +235,7 @@ export default function SchoolStudentsPage() {
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
-            <div className="flex items-center gap-2">
+            <div className="hidden md:flex items-center gap-2">
                  <Button variant={layout === 'list' ? 'default': 'outline'} size="icon" onClick={() => setLayout('list')}>
                     <List className="h-4 w-4" />
                 </Button>
@@ -249,14 +249,29 @@ export default function SchoolStudentsPage() {
             <TabsTrigger value="pending">Pending ({isLoading ? '...' : filteredStudents.pending.length})</TabsTrigger>
             <TabsTrigger value="verified">Verified ({isLoading ? '...' : filteredStudents.verified.length})</TabsTrigger>
           </TabsList>
-          <TabsContent value="pending">
-             {layout === 'list' ? (
+          <TabsContent value="pending" className="pt-4">
+            {/* Mobile View for Pending */}
+            <div className="grid grid-cols-1 gap-4 md:hidden">
+              {isLoading ? (
+                Array.from({length:2}).map((_, i) => <Skeleton key={i} className="h-60" />)
+              ) : filteredStudents.pending.length > 0 ? (
+                filteredStudents.pending.map(student => (
+                  <StudentCard key={student.id} student={student} />
+                ))
+              ) : (
+                <p className="col-span-full text-center text-muted-foreground pt-8">No pending students found.</p>
+              )}
+            </div>
+
+            {/* Desktop View for Pending */}
+            <div className="hidden md:block">
+              {layout === 'list' ? (
                 <Table>
                 <TableHeader>
                     <TableRow>
                     <TableHead>Name</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Program</TableHead>
+                    <TableHead className="hidden md:table-cell">Email</TableHead>
+                    <TableHead className="hidden lg:table-cell">Program</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Actions</TableHead>
                     </TableRow>
@@ -285,7 +300,7 @@ export default function SchoolStudentsPage() {
                 </TableBody>
                 </Table>
              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                      {isLoading ? (
                         Array.from({length:3}).map((_, i) => <Skeleton key={i} className="h-60" />)
                      ) : filteredStudents.pending.length > 0 ? (
@@ -297,55 +312,72 @@ export default function SchoolStudentsPage() {
                      )}
                 </div>
              )}
+            </div>
           </TabsContent>
-          <TabsContent value="verified">
-             {layout === 'list' ? (
-                <Table>
-                <TableHeader>
-                    <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Program</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Actions</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {isLoading ? (
-                    <TableRow>
-                        <TableCell colSpan={5} className="h-24 text-center">
-                        <Loader2 className="mx-auto h-8 w-8 animate-spin text-muted-foreground" />
-                        </TableCell>
-                    </TableRow>
-                    ) : filteredStudents.verified.length > 0 ? (
-                    filteredStudents.verified.map(student => (
-                        <StudentRow key={student.id} student={student} />
-                    ))
-                    ) : (
-                    <TableRow>
-                        <TableCell
-                        colSpan={5}
-                        className="text-center text-muted-foreground pt-8"
-                        >
-                        No verified students found.
-                        </TableCell>
-                    </TableRow>
-                    )}
-                </TableBody>
-                </Table>
+          <TabsContent value="verified" className="pt-4">
+            {/* Mobile View for Verified */}
+            <div className="grid grid-cols-1 gap-4 md:hidden">
+              {isLoading ? (
+                Array.from({length:2}).map((_, i) => <Skeleton key={i} className="h-60" />)
+              ) : filteredStudents.verified.length > 0 ? (
+                filteredStudents.verified.map(student => (
+                  <StudentCard key={student.id} student={student} />
+                ))
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
-                     {isLoading ? (
-                        Array.from({length:3}).map((_, i) => <Skeleton key={i} className="h-60" />)
-                     ) : filteredStudents.verified.length > 0 ? (
-                        filteredStudents.verified.map(student => (
-                            <StudentCard key={student.id} student={student} />
-                        ))
-                     ) : (
-                        <p className="col-span-full text-center text-muted-foreground pt-8">No verified students found.</p>
-                     )}
-                </div>
+                <p className="col-span-full text-center text-muted-foreground pt-8">No verified students found.</p>
               )}
+            </div>
+
+            {/* Desktop View for Verified */}
+            <div className="hidden md:block">
+              {layout === 'list' ? (
+                  <Table>
+                  <TableHeader>
+                      <TableRow>
+                      <TableHead>Name</TableHead>
+                      <TableHead className="hidden md:table-cell">Email</TableHead>
+                      <TableHead className="hidden lg:table-cell">Program</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Actions</TableHead>
+                      </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                      {isLoading ? (
+                      <TableRow>
+                          <TableCell colSpan={5} className="h-24 text-center">
+                          <Loader2 className="mx-auto h-8 w-8 animate-spin text-muted-foreground" />
+                          </TableCell>
+                      </TableRow>
+                      ) : filteredStudents.verified.length > 0 ? (
+                      filteredStudents.verified.map(student => (
+                          <StudentRow key={student.id} student={student} />
+                      ))
+                      ) : (
+                      <TableRow>
+                          <TableCell
+                          colSpan={5}
+                          className="text-center text-muted-foreground pt-8"
+                          >
+                          No verified students found.
+                          </TableCell>
+                      </TableRow>
+                      )}
+                  </TableBody>
+                  </Table>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {isLoading ? (
+                          Array.from({length:3}).map((_, i) => <Skeleton key={i} className="h-60" />)
+                      ) : filteredStudents.verified.length > 0 ? (
+                          filteredStudents.verified.map(student => (
+                              <StudentCard key={student.id} student={student} />
+                          ))
+                      ) : (
+                          <p className="col-span-full text-center text-muted-foreground pt-8">No verified students found.</p>
+                      )}
+                  </div>
+                )}
+            </div>
           </TabsContent>
         </Tabs>
       </CardContent>

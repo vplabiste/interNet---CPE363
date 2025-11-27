@@ -164,17 +164,49 @@ export default function AdminUsersPage() {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader className="flex flex-row justify-between items-start">
+        <CardHeader className="flex flex-col md:flex-row justify-between items-start md:items-center">
           <div>
             <CardTitle>Manage Users</CardTitle>
             <CardDescription>
               Add new school, company, or admin accounts.
             </CardDescription>
           </div>
-          <AddUserDialog />
+          <div className="pt-4 md:pt-0">
+            <AddUserDialog />
+          </div>
         </CardHeader>
-        <CardContent>
-           <Table>
+        <CardContent className="p-0 md:p-6">
+          {/* Mobile View */}
+          <div className="space-y-4 md:hidden p-4">
+            {demoUsers.map((user) => (
+              <Card key={user.id}>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Avatar className="h-10 w-10">
+                          <AvatarImage src={user.profilePictureUrl} />
+                          <AvatarFallback>{getInitials(user.fullName)}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="font-semibold">{user.fullName}</p>
+                        <p className="text-sm text-muted-foreground">{user.email}</p>
+                      </div>
+                    </div>
+                    <Button variant="ghost" size="icon" onClick={() => handleDeleteUser(user)}>
+                        <Trash2 className="h-4 w-4" />
+                        <span className="sr-only">Delete user</span>
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <Badge variant={getRoleVariant(user.role)}>{user.role}</Badge>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Desktop View */}
+           <Table className="hidden md:table">
             <TableHeader>
               <TableRow>
                 <TableHead>User</TableHead>

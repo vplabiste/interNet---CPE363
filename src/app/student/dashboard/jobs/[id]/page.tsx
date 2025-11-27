@@ -72,7 +72,7 @@ export default function JobApplicationPage({ params }: { params: { id: string } 
             Back to Jobs
         </Button>
         <Card className="overflow-hidden">
-            <div className="relative h-48 w-full bg-muted">
+            <div className="relative h-32 md:h-48 w-full bg-muted">
                 {company.headerImageUrl && (
                     <Image 
                         src={company.headerImageUrl} 
@@ -82,15 +82,15 @@ export default function JobApplicationPage({ params }: { params: { id: string } 
                     />
                 )}
             </div>
-            <div className="flex items-end -mt-20 ml-8">
-                <Avatar className="h-32 w-32 rounded-full border-4 border-background">
+            <div className="flex items-end -mt-16 md:-mt-20 ml-4 md:ml-8">
+                <Avatar className="h-24 w-24 md:h-32 md:w-32 rounded-full border-4 border-background bg-muted">
                     <AvatarImage src={company.logoUrl} alt={company.fullName} />
                     <AvatarFallback>{getInitials(company.fullName)}</AvatarFallback>
                 </Avatar>
             </div>
             <CardHeader className="pt-4">
-                <CardTitle className="text-3xl font-headline">{job.jobIntroduction}</CardTitle>
-                <CardDescription className="text-lg">{company.fullName}</CardDescription>
+                <CardTitle className="text-2xl md:text-3xl font-headline">{job.jobIntroduction}</CardTitle>
+                <CardDescription className="text-md md:text-lg">{company.fullName}</CardDescription>
             </CardHeader>
             <CardContent>
                 <Separator className="my-4" />
@@ -143,5 +143,3 @@ export default function JobApplicationPage({ params }: { params: { id: string } 
       </div>
   );
 }
-
-    

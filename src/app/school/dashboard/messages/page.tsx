@@ -125,8 +125,8 @@ export default function MessagesPage() {
 
     const ConversationList = () => (
          <div className="w-full h-full flex flex-col">
-             <CardHeader>
-                <CardTitle>Conversations</CardTitle>
+             <CardHeader className="p-4">
+                <CardTitle className="text-xl">Conversations</CardTitle>
                  <div className="relative mt-2">
                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input 
@@ -181,7 +181,7 @@ export default function MessagesPage() {
         <div className="w-full h-full flex flex-col">
             {selectedConversation ? (
                 <>
-                    <div className="p-4 border-b flex items-center gap-3">
+                    <div className="p-3 border-b flex items-center gap-3">
                         {isMobile && (
                             <Button variant="ghost" size="icon" className="mr-2" onClick={() => setSelectedConversation(null)}>
                                 <ArrowLeft className="h-5 w-5" />
@@ -199,7 +199,7 @@ export default function MessagesPage() {
                                  <div key={msg.id} className={cn('flex items-end gap-2', msg.sender === 'me' ? 'justify-end' : 'justify-start')}>
                                     {msg.sender !== 'me' && <Avatar className="h-8 w-8"><AvatarImage src={selectedConversation.avatar} /><AvatarFallback>{getInitials(selectedConversation.name)}</AvatarFallback></Avatar>}
                                     <div className={cn(
-                                        'p-3 rounded-lg max-w-md',
+                                        'p-3 rounded-lg max-w-[80%] md:max-w-md',
                                         msg.sender === 'me' ? 'bg-primary text-primary-foreground' : 'bg-background border'
                                     )}>
                                         <p className="text-sm">{msg.text}</p>
@@ -208,7 +208,7 @@ export default function MessagesPage() {
                             ))}
                         </div>
                     </ScrollArea>
-                    <div className="p-4 border-t bg-background">
+                    <div className="p-2 md:p-4 border-t bg-background">
                         <form onSubmit={handleSendMessage} className="flex items-center gap-2">
                             <Button type="button" variant="ghost" size="icon">
                                 <Paperclip className="h-5 w-5" />
@@ -236,14 +236,14 @@ export default function MessagesPage() {
 
     if (isMobile) {
         return (
-             <Card className="h-[calc(100vh-10rem)]">
+             <Card className="h-[calc(100svh_-_8rem)] w-full">
                 {selectedConversation ? <ChatPanel /> : <ConversationList />}
              </Card>
         )
     }
 
   return (
-    <Card className="h-[calc(100vh-10rem)] flex">
+    <Card className="h-[calc(100vh_-_8rem)] flex">
       <div className="w-full md:w-1/3 border-r flex flex-col">
         <ConversationList />
       </div>
@@ -253,5 +253,3 @@ export default function MessagesPage() {
     </Card>
   );
 }
-
-    

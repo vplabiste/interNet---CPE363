@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect } from 'react';
@@ -161,10 +162,10 @@ export default function Home() {
         <section className="relative w-full overflow-hidden bg-card pt-16 sm:pt-24 lg:pt-32 pb-12 sm:pb-16 md:pb-24">
           <div className="container grid gap-8 px-4 md:grid-cols-2 md:px-6 lg:gap-16">
             <div className="flex flex-col items-start justify-center space-y-6">
-              <h1 className="mt-8 font-headline text-4xl font-bold tracking-tight text-foreground sm:mt-0 sm:text-5xl md:text-6xl">
+              <h1 className="mt-8 font-headline text-3xl font-bold tracking-tight text-foreground sm:mt-0 sm:text-5xl md:text-6xl">
                 Where Talent Meets Opportunity
               </h1>
-              <p className="max-w-[600px] text-lg text-muted-foreground md:text-xl">
+              <p className="max-w-[600px] text-base text-muted-foreground md:text-xl">
                 interNet is the ultimate platform bridging the gap between
                 ambitious students, forward-thinking schools, and innovative
                 companies.
@@ -198,7 +199,7 @@ export default function Home() {
         <section id="partners" className="bg-background py-12 md:py-24 lg:py-32">
             <div className="container">
                 <div className="mb-12 text-center">
-                    <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
+                    <h2 className="font-headline text-2xl font-bold tracking-tighter sm:text-4xl">
                         Our University Partners
                     </h2>
                     <p className="mx-auto mt-4 max-w-[700px] text-muted-foreground md:text-xl">
@@ -246,7 +247,7 @@ export default function Home() {
         <section id="companies" className="bg-card py-12 md:py-24 lg:py-32">
             <div className="container">
                 <div className="mb-12 text-center">
-                    <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
+                    <h2 className="font-headline text-2xl font-bold tracking-tighter sm:text-4xl">
                         Featured Companies
                     </h2>
                     <p className="mx-auto mt-4 max-w-[700px] text-muted-foreground md:text-xl">
@@ -295,7 +296,7 @@ export default function Home() {
         <section id="features" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="mb-12 text-center">
-              <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
+              <h2 className="font-headline text-2xl font-bold tracking-tighter sm:text-4xl">
                 A Platform for Everyone
               </h2>
               <p className="mx-auto mt-4 max-w-[700px] text-muted-foreground md:text-xl">
@@ -322,7 +323,7 @@ export default function Home() {
         <section id="how-it-works" className="w-full bg-card py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="mb-12 text-center">
-              <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
+              <h2 className="font-headline text-2xl font-bold tracking-tighter sm:text-4xl">
                 Simple Steps to Success
               </h2>
               <p className="mx-auto mt-4 max-w-[700px] text-muted-foreground md:text-xl">
@@ -372,3 +373,5 @@ export default function Home() {
     </div>
   );
 }
+
+    

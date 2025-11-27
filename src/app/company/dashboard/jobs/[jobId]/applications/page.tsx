@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useMemo, useState } from 'react';
@@ -39,6 +40,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Lightbulb, Loader2 } from 'lucide-react';
 import { suggestApplicationStatus } from '@/ai/flows/suggest-application-status';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Separator } from '@/components/ui/separator';
 
 // --- Static Data for UI/UX Development ---
 const demoJob: Job = { id: 'job1-1', companyId: 'dev-company-id', jobIntroduction: 'Software Engineer Intern', program: 'Computer Science', qualifications: 'Experience with React and Node.js', requiredDocuments: 'Resume, Transcript' };
@@ -130,54 +132,112 @@ function ApplicationRow({ application, job }: { application: Application, job: J
     if (!student) return null;
 
     return (
-        <TableRow>
-            <TableCell>{student.fullName}</TableCell>
-            <TableCell>
-                <StudentProfileModal student={student} />
-            </TableCell>
-            <TableCell>
-                 <Select
-                    defaultValue={application.status}
-                    onValueChange={(newStatus: Application['status']) => handleStatusChange(newStatus)}
-                 >
-                    <SelectTrigger>
-                        <SelectValue placeholder="Select status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="Under Review">Under Review</SelectItem>
-                        <SelectItem value="Accepted">Accepted</SelectItem>
-                        <SelectItem value="Rejected">Rejected</SelectItem>
-                        <SelectItem value="Needs Resubmission">Needs Resubmission</SelectItem>
-                    </SelectContent>
-                </Select>
-            </TableCell>
-            <TableCell>
-                 <Dialog>
-                    <DialogTrigger asChild>
-                        <Button variant="ghost" size="sm" onClick={handleGetSuggestion} disabled={isSuggesting}>
-                           {isSuggesting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Lightbulb className="h-4 w-4" />}
-                            <span className="ml-2">AI Suggest</span>
-                        </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                        <DialogHeader>
-                            <DialogTitle>AI Status Suggestion</DialogTitle>
-                        </DialogHeader>
-                         {isSuggesting && <div className="flex items-center justify-center p-8"><Loader2 className="h-8 w-8 animate-spin" /></div>}
-                         {suggestion && (
-                             <div className="space-y-4">
-                                 <p>Based on the data, we suggest the status:</p>
-                                 <Badge>{suggestion.suggestedStatus}</Badge>
-                                 <p className="font-semibold">Explanation:</p>
-                                 <p className="text-sm text-muted-foreground p-4 bg-muted rounded-md">{suggestion.explanation}</p>
-                                 <p className="text-sm">Confidence: {Math.round(suggestion.confidenceScore * 100)}%</p>
-                                 <Button onClick={() => handleStatusChange(suggestion.suggestedStatus)}>Apply this status</Button>
-                             </div>
-                         )}
-                    </DialogContent>
-                </Dialog>
-            </TableCell>
-        </TableRow>
+        <>
+            {/* Mobile Card View */}
+            <div className="md:hidden">
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="text-lg">{student.fullName}</CardTitle>
+                        <CardDescription>
+                            <StudentProfileModal student={student} />
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                         <div className="space-y-1">
+                            <p className="text-sm font-medium">Status</p>
+                            <Select
+                                defaultValue={application.status}
+                                onValueChange={(newStatus: Application['status']) => handleStatusChange(newStatus)}
+                            >
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select status" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="Under Review">Under Review</SelectItem>
+                                    <SelectItem value="Accepted">Accepted</SelectItem>
+                                    <SelectItem value="Rejected">Rejected</SelectItem>
+                                    <SelectItem value="Needs Resubmission">Needs Resubmission</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button variant="outline" className="w-full" onClick={handleGetSuggestion} disabled={isSuggesting}>
+                                {isSuggesting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Lightbulb className="h-4 w-4" />}
+                                    <span className="ml-2">AI Suggest Status</span>
+                                </Button>
+                            </DialogTrigger>
+                             <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>AI Status Suggestion</DialogTitle>
+                                </DialogHeader>
+                                {isSuggesting && <div className="flex items-center justify-center p-8"><Loader2 className="h-8 w-8 animate-spin" /></div>}
+                                {suggestion && (
+                                    <div className="space-y-4">
+                                        <p>Based on the data, we suggest the status:</p>
+                                        <Badge>{suggestion.suggestedStatus}</Badge>
+                                        <p className="font-semibold">Explanation:</p>
+                                        <p className="text-sm text-muted-foreground p-4 bg-muted rounded-md">{suggestion.explanation}</p>
+                                        <p className="text-sm">Confidence: {Math.round(suggestion.confidenceScore * 100)}%</p>
+                                        <Button onClick={() => handleStatusChange(suggestion.suggestedStatus)}>Apply this status</Button>
+                                    </div>
+                                )}
+                            </DialogContent>
+                        </Dialog>
+                    </CardContent>
+                </Card>
+            </div>
+        
+            {/* Desktop Table Row */}
+            <TableRow className="hidden md:table-row">
+                <TableCell>{student.fullName}</TableCell>
+                <TableCell>
+                    <StudentProfileModal student={student} />
+                </TableCell>
+                <TableCell>
+                    <Select
+                        defaultValue={application.status}
+                        onValueChange={(newStatus: Application['status']) => handleStatusChange(newStatus)}
+                    >
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Select status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="Under Review">Under Review</SelectItem>
+                            <SelectItem value="Accepted">Accepted</SelectItem>
+                            <SelectItem value="Rejected">Rejected</SelectItem>
+                            <SelectItem value="Needs Resubmission">Needs Resubmission</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </TableCell>
+                <TableCell>
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button variant="ghost" size="sm" onClick={handleGetSuggestion} disabled={isSuggesting}>
+                            {isSuggesting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Lightbulb className="h-4 w-4" />}
+                                <span className="ml-2">AI Suggest</span>
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>AI Status Suggestion</DialogTitle>
+                            </DialogHeader>
+                            {isSuggesting && <div className="flex items-center justify-center p-8"><Loader2 className="h-8 w-8 animate-spin" /></div>}
+                            {suggestion && (
+                                <div className="space-y-4">
+                                    <p>Based on the data, we suggest the status:</p>
+                                    <Badge>{suggestion.suggestedStatus}</Badge>
+                                    <p className="font-semibold">Explanation:</p>
+                                    <p className="text-sm text-muted-foreground p-4 bg-muted rounded-md">{suggestion.explanation}</p>
+                                    <p className="text-sm">Confidence: {Math.round(suggestion.confidenceScore * 100)}%</p>
+                                    <Button onClick={() => handleStatusChange(suggestion.suggestedStatus)}>Apply this status</Button>
+                                </div>
+                            )}
+                        </DialogContent>
+                    </Dialog>
+                </TableCell>
+            </TableRow>
+        </>
     )
 }
 
@@ -199,8 +259,20 @@ export default function JobApplicationsPage({ params }: { params: { jobId: strin
         {job && <CardDescription>Review and manage all applications submitted for this role.</CardDescription>}
         {isLoading && <Skeleton className="h-8 w-3/4" />}
       </CardHeader>
-      <CardContent>
-         <Table>
+      <CardContent className="p-0 md:p-6">
+        {/* Mobile View */}
+        <div className="space-y-4 md:hidden p-4">
+             {isLoading ? (
+                <Skeleton className="h-32 w-full" />
+            ) : applications && applications.length > 0 && job ? (
+                applications.map(app => <ApplicationRow key={app.id} application={app} job={job} />)
+            ) : (
+                <div className="text-center text-muted-foreground pt-8">No applications received yet.</div>
+            )}
+        </div>
+
+        {/* Desktop View */}
+        <Table className="hidden md:table">
           <TableHeader>
             <TableRow>
               <TableHead>Student Name</TableHead>
@@ -212,13 +284,15 @@ export default function JobApplicationsPage({ params }: { params: { jobId: strin
           <TableBody>
              {isLoading ? (
                 <TableRow>
-                    <TableCell colSpan={4} className="text-center">Loading applications...</TableCell>
+                    <TableCell colSpan={4} className="text-center">
+                        <Skeleton className="h-24 w-full" />
+                    </TableCell>
                 </TableRow>
             ) : applications && applications.length > 0 && job ? (
                 applications.map(app => <ApplicationRow key={app.id} application={app} job={job} />)
             ) : (
                 <TableRow>
-                    <TableCell colSpan={4} className="text-center text-muted-foreground">No applications received yet.</TableCell>
+                    <TableCell colSpan={4} className="text-center text-muted-foreground h-24">No applications received yet.</TableCell>
                 </TableRow>
             )}
           </TableBody>
