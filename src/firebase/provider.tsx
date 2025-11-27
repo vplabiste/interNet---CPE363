@@ -70,7 +70,7 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
 
   useEffect(() => {
     // Dev mode user bypass
-    if (process.env.NODE_ENV === 'development' && devUser) {
+    if (process.env.NEXT_PUBLIC_DEV_MODE === 'true' && devUser) {
       setState({
         user: { uid: devUser.id } as User,
         userData: devUser,
@@ -139,7 +139,7 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
       isUserLoading: state.isLoading, // Map the main loading state
       error: state.error,
       userRole: state.userData?.role || null,
-      setDevUser: process.env.NODE_ENV === 'development' ? setDevUser : undefined,
+      setDevUser: process.env.NEXT_PUBLIC_DEV_MODE === 'true' ? setDevUser : undefined,
     }),
     [firebaseApp, firestore, auth, state]
   );

@@ -73,7 +73,7 @@ export function LoginForm() {
   }
   
   const handleDevLogin = (role: 'student' | 'company' | 'admin' | 'school') => {
-    if (process.env.NODE_ENV === 'development' && setDevUser) {
+    if (process.env.NEXT_PUBLIC_DEV_MODE === 'true' && setDevUser) {
         let devUserData: User;
         if (role === 'student') {
             devUserData = {
@@ -172,7 +172,7 @@ export function LoginForm() {
       </form>
     </Form>
 
-    {process.env.NODE_ENV === 'development' && (
+    {process.env.NEXT_PUBLIC_DEV_MODE === 'true' && (
       <>
         <div className="my-4 flex items-center">
             <Separator className="flex-1" />
