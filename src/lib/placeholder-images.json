@@ -1,0 +1,94 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero",
+      "imageUrl": "https://images.unsplash.com/photo-1518829384985-bfa4e1aa1efd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxpbnRlcm5zaGlwJTIwb2ZmaWNlfGVufDB8fHx8MTc1OTYwNTc1MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "internship office",
+      "description": "Hero image for the landing page"
+    },
+    {
+      "id": "student-feature",
+      "imageUrl": "https://images.unsplash.com/photo-1741699428220-65f37f3fbbcb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxzdHVkZW50JTIwc3R1ZHlpbmd8ZW58MHx8fHwxNzU5NjAyNTQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "student studying",
+      "description": "Feature image for students section"
+    },
+    {
+      "id": "school-feature",
+      "imageUrl": "https://images.unsplash.com/photo-1603857365671-93cd96dc1df8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8dW5pdmVyc2l0eSUyMGNhbXB1c3xlbnwwfHx8fDE3NTk0OTk3NTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "university campus",
+      "description": "Feature image for schools section"
+    },
+    {
+      "id": "company-feature",
+      "imageUrl": "https://images.unsplash.com/photo-1605719882363-7273d12654dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjb3Jwb3JhdGUlMjBidWlsZGluZ3xlbnwwfHx8fDE3NTk1MTY3MDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "corporate building",
+      "description": "Feature image for companies section"
+    },
+    {
+      "id": "testimonial-1",
+      "imageUrl": "https://images.unsplash.com/photo-1573496358961-3c82861ab8f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwcm9mZXNzaW9uYWwlMjBoZWFkc2hvdHxlbnwwfHx8fDE3NTk2MDI3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "professional headshot",
+      "description": "Avatar for first testimonial"
+    },
+    {
+      "id": "testimonial-2",
+      "imageUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBoZWFkc2hvdHxlbnwwfHx8fDE3NTk2MDI3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "professional headshot",
+      "description": "Avatar for second testimonial"
+    },
+    {
+      "id": "testimonial-3",
+      "imageUrl": "https://images.unsplash.com/photo-1629425733761-caae3b5f2e50?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwcm9mZXNzaW9uYWwlMjBoZWFkc2hvdHxlbnwwfHx8fDE3NTk2MDI3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "professional headshot",
+      "description": "Avatar for third testimonial"
+    },
+    {
+      "id": "logo-up",
+      "imageUrl": "https://images.unsplash.com/photo-1738464024478-2a60ac914513?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwbG9nb3xlbnwwfHx8fDE3NTk1NDIxNjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "university logo",
+      "description": "University of the Philippines Logo"
+    },
+    {
+      "id": "logo-ateneo",
+      "imageUrl": "https://images.unsplash.com/photo-1728206415817-edd426280277?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8dW5pdmVyc2l0eSUyMGxvZ298ZW58MHx8fHwxNzU5NTQyMTYyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "university logo",
+      "description": "Ateneo de Manila University Logo"
+    },
+    {
+      "id": "logo-dlsu",
+      "imageUrl": "https://images.unsplash.com/photo-1728206348193-9b5ae74a7d32?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx1bml2ZXJzaXR5JTIwbG9nb3xlbnwwfHx8fDE3NTk1NDIxNjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "university logo",
+      "description": "De La Salle University Logo"
+    },
+    {
+      "id": "logo-ust",
+      "imageUrl": "https://images.unsplash.com/photo-1728206348193-9b5ae74a7d32?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx1bml2ZXJzaXR5JTIwbG9nb3xlbnwwfHx8fDE3NTk1NDIxNjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "university logo",
+      "description": "University of Santo Tomas Logo"
+    },
+    {
+      "id": "logo-smc",
+      "imageUrl": "https://images.unsplash.com/photo-1619551734325-81aaf323686c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb21wYW55JTIwbG9nb3xlbnwwfHx8fDE3NTk1MTk4ODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "company logo",
+      "description": "San Miguel Corporation Logo"
+    },
+    {
+      "id": "logo-jollibee",
+      "imageUrl": "https://images.unsplash.com/photo-1620288627223-53302f4e8c74?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjb21wYW55JTIwbG9nb3xlbnwwfHx8fDE3NTk1MTk4ODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "company logo",
+      "description": "Jollibee Foods Corporation Logo"
+    },
+    {
+      "id": "logo-ayala",
+      "imageUrl": "https://images.unsplash.com/photo-1687523327554-fa9f50423489?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjb21wYW55JTIwbG9nb3xlbnwwfHx8fDE3NTk1MTk4ODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "company logo",
+      "description": "Ayala Corporation Logo"
+    },
+    {
+      "id": "logo-sm",
+      "imageUrl": "https://images.unsplash.com/photo-1620288627223-53302f4e8c74?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjb21wYW55JTIwbG9nb3xlbnwwfHx8fDE3NTk1MTk4ODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "company logo",
+      "description": "SM Investments Logo"
+    }
+  ]
+}

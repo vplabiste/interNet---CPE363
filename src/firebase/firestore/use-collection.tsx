@@ -1,0 +1,128 @@
+
+'use client';
+
+import { useState, useEffect, useCallback } from 'react';
+import {
+  Query,
+  onSnapshot,
+  DocumentData,
+  FirestoreError,
+  QuerySnapshot,
+  CollectionReference,
+  where,
+} from 'firebase/firestore';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
+
+/** Utility type to add an 'id' field to a given type T. */
+export type WithId<T> = T & { id: string };
+
+type UseCollectionOptions = {
+    onSnapshot?: (snapshot: QuerySnapshot<DocumentData>) => void;
+}
+
+/**
+ * Interface for the return value of the useCollection hook.
+ * @template T Type of the document data.
+ */
+export interface UseCollectionResult<T> {
+  data: WithId<T>[] | null; // Document data with ID, or null.
+  isLoading: boolean;       // True if loading.
+  error: FirestoreError | Error | null; // Error object, or null.
+  refetch: (newQuery: Query<DocumentData>) => void; // Function to refetch with a new query
+}
+
+/* Internal implementation of Query:
+  https://github.com/firebase/firebase-js-sdk/blob/c5f08a9bc5da0d2b0207802c972d53724ccef055/packages/firestore/src/lite-api/reference.ts#L143
+*/
+export interface InternalQuery extends Query<DocumentData> {
+  _query: {
+    path: {
+      canonicalString(): string;
+      toString(): string;
+    }
+  }
+}
+
+/**
+ * React hook to subscribe to a Firestore collection or query in real-time.
+ * Handles nullable references/queries.
+ * 
+ *
+ * IMPORTANT! YOU MUST MEMOIZE the inputted memoizedTargetRefOrQuery or BAD THINGS WILL HAPPEN
+ * use useMemo to memoize it per React guidence.  Also make sure that it's dependencies are stable
+ * references
+ *  
+ * @template T Optional type for document data. Defaults to any.
+ * @param {CollectionReference<DocumentData> | Query<DocumentData> | null | undefined} targetRefOrQuery -
+ * The Firestore CollectionReference or Query. Waits if null/undefined.
+ * @returns {UseCollectionResult<T>} Object with data, isLoading, error.
+ */
+export function useCollection<T = any>(
+    initialQuery: ((CollectionReference<DocumentData> | Query<DocumentData>))  | null | undefined,
+    options?: UseCollectionOptions,
+): UseCollectionResult<T> {
+  type ResultItemType = WithId<T>;
+  type StateDataType = ResultItemType[] | null;
+
+  const [currentQuery, setCurrentQuery] = useState(() => initialQuery);
+  const [data, setData] = useState<StateDataType>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<FirestoreError | Error | null>(null);
+
+  const refetch = useCallback((newQuery: Query<DocumentData>) => {
+    setCurrentQuery(newQuery);
+  }, []);
+
+  useEffect(() => {
+    setCurrentQuery(initialQuery);
+  }, [initialQuery]);
+
+  useEffect(() => {
+    if (!currentQuery) {
+      setData(null);
+      setIsLoading(false);
+      setError(null);
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    const unsubscribe = onSnapshot(
+      currentQuery,
+      (snapshot: QuerySnapshot<DocumentData>) => {
+        const results: ResultItemType[] = [];
+        for (const doc of snapshot.docs) {
+          results.push({ ...(doc.data() as T), id: doc.id });
+        }
+        setData(results);
+        setError(null);
+        setIsLoading(false);
+        options?.onSnapshot?.(snapshot);
+      },
+      (error: FirestoreError) => {
+        const path: string =
+          currentQuery.type === 'collection'
+            ? (currentQuery as CollectionReference).path
+            : (currentQuery as unknown as InternalQuery)._query.path.toString();
+
+        const contextualError = new FirestorePermissionError({
+          operation: 'list',
+          path,
+        });
+
+        setError(contextualError);
+        setData(null);
+        setIsLoading(false);
+
+        errorEmitter.emit('permission-error', contextualError);
+      }
+    );
+
+    return () => unsubscribe();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentQuery]);
+
+  return { data, isLoading, error, refetch };
+}
